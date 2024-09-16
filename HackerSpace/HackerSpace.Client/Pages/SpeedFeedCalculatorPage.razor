@@ -1,0 +1,40 @@
+﻿@page "/speed-feed-calculator"
+@rendermode InteractiveWebAssembly
+
+@using HackerSpace.Client.Models
+
+<h3>Speed Feed Calculator Page</h3>
+
+
+<div class="mb-3">
+    <label for="rpm" class="form-label">RPM</label>
+    <input type="number" id="rpm" placeholder="RPM" @bind-value="speedFeed.Rpm" />
+</div>
+
+<div class="mb-3">
+    <label for="teeth" class="form-label">Teeth</label>
+    <input type="number" id="teeth" placeholder="Teeth" @bind-value="speedFeed.Teeth" />
+</div>
+
+<div class="mb-3">
+    <label for="chipload" class="form-label">Chipload</label>
+    <input type="number" id="chipload" placeholder="Chip Load" @bind-value="speedFeed.ChipLoad" />
+</div>
+
+<button type="button" @onclick="Calculate" class="btn btn-primary">Calculate</button>
+
+<p>
+    Result: @result
+</p>
+
+@code {
+    string result = "Nothing calculated yet";
+
+    SpeedFeed speedFeed = new SpeedFeed();
+
+    void Calculate()
+    {
+        result = $"The feed rate you should start with is {speedFeed.FeedRate.ToString()}";
+    }
+
+}
