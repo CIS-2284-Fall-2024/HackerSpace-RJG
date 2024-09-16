@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackerSpace", "HackerSpace\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackerSpace.Client", "HackerSpace\HackerSpace.Client\HackerSpace.Client.csproj", "{00D09CD9-9B46-41A4-9D5D-9FFC4CEF1499}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerSpace.Client.Tests", "HackerSpace.Client.Tests\HackerSpace.Client.Tests.csproj", "{4EA969EF-C633-4BC3-AFF7-64DEF51E0894}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{00D09CD9-9B46-41A4-9D5D-9FFC4CEF1499}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00D09CD9-9B46-41A4-9D5D-9FFC4CEF1499}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00D09CD9-9B46-41A4-9D5D-9FFC4CEF1499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EA969EF-C633-4BC3-AFF7-64DEF51E0894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EA969EF-C633-4BC3-AFF7-64DEF51E0894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EA969EF-C633-4BC3-AFF7-64DEF51E0894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EA969EF-C633-4BC3-AFF7-64DEF51E0894}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

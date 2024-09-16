@@ -20,6 +20,10 @@
             get { return teeth; }
             set
             {
+                if (value < 1)
+                {
+                    throw new ArgumentException("Teeth cannot be less than one.");
+                }
                 teeth = value;
                 Calc();
             }
