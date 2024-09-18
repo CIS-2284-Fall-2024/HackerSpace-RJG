@@ -5,24 +5,30 @@
 
 <h3>Speed Feed Calculator Page</h3>
 
+<EditForm Model="speedFeed" OnValidSubmit="Submit" FormName="SpeedFeedFrm">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="rpm" class="form-label">RPM</label>
+        <input type="number" id="rpm" placeholder="RPM" @bind-value="speedFeed.Rpm" />
+        <ValidationMessage For="()=> speedFeed.Rpm"/>
+    </div>
 
-<div class="mb-3">
-    <label for="rpm" class="form-label">RPM</label>
-    <input type="number" id="rpm" placeholder="RPM" @bind-value="speedFeed.Rpm" />
-</div>
+    <div class="mb-3">
+        <label for="teeth" class="form-label">Teeth</label>
+        <input type="number" id="teeth" placeholder="Teeth" @bind-value="speedFeed.Teeth" />
+        <ValidationMessage For="()=> speedFeed.Teeth" />
+    </div>
 
-<div class="mb-3">
-    <label for="teeth" class="form-label">Teeth</label>
-    <input type="number" id="teeth" placeholder="Teeth" @bind-value="speedFeed.Teeth" />
-</div>
+    <div class="mb-3">
+        <label for="chipload" class="form-label">Chipload</label>
+        <input type="number" id="chipload" placeholder="Chip Load" @bind-value="speedFeed.ChipLoad" />
+        <ValidationMessage For="()=> speedFeed.ChipLoad" />
+    </div>
 
-<div class="mb-3">
-    <label for="chipload" class="form-label">Chipload</label>
-    <input type="number" id="chipload" placeholder="Chip Load" @bind-value="speedFeed.ChipLoad" />
-</div>
+    
 
-<button type="button" @onclick="Calculate" class="btn btn-primary">Calculate</button>
-
+    <button type="submit" class="btn btn-primary">Calculate</button>
+</EditForm>
 <p>
     Result: @result
 </p>
@@ -32,7 +38,7 @@
 
     SpeedFeed speedFeed = new SpeedFeed();
 
-    void Calculate()
+    void Submit()
     {
         result = $"The feed rate you should start with is {speedFeed.FeedRate.ToString()}";
     }

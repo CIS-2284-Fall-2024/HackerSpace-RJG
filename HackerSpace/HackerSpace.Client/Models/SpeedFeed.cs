@@ -1,9 +1,13 @@
-﻿namespace HackerSpace.Client.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HackerSpace.Client.Models
 {
     public class SpeedFeed
     {
         
         private float rpm;
+        [Required]
+        [Range(100, float.MaxValue)]
         public float Rpm
         {
             get { return rpm; }
@@ -15,6 +19,8 @@
         }
 
         private int teeth;
+        [Required]
+        [Range(1, int.MaxValue)]
         public int Teeth
         {
             get { return teeth; }
@@ -29,6 +35,8 @@
             }
         }
         private float chipLoad;
+        [Required]
+        [Range(0.0001, float.MaxValue)]
         public float ChipLoad
         {
             get { return chipLoad; }
