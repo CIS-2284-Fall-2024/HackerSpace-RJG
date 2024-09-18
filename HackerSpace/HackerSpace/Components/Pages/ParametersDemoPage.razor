@@ -1,0 +1,29 @@
+﻿@page "/parameters-demo/{Param?}"
+<PageTitle>Set Parameters Async</PageTitle>
+
+<h3>Parameters Demo Page</h3>
+
+<p>@message</p>
+
+@code {
+    private string message = "Not set";
+
+    [Parameter]
+    public string? Param { get; set; }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        if (parameters.TryGetValue<string>("Param", out var value))
+        {
+            if(value is null)
+            {
+                message = "Param not set";
+            }
+            else
+            {
+                message = $"Param set to {value}";
+            }
+        }
+        await base.SetParametersAsync(parameters);
+    }
+}

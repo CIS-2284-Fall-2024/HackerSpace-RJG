@@ -1,0 +1,33 @@
+﻿@page "/on-init"
+@attribute [StreamRendering]
+<PageTitle>On Initialized Demo</PageTitle>
+
+<h3>On Initialized Demo Page</h3>
+
+@if(items == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    foreach(var item in items)
+    {
+        <p>@item</p>
+    }
+}
+
+<p>@message</p>
+@code {
+    List<string>? items;
+    private string? message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        message = $"Initialized at {DateTime.Now}";
+        //Similate a long running operation
+        await Task.Delay(5000);
+        items = new List<string> { "Item 1", "Item 2", "Item 3" };
+        StateHasChanged();
+    }
+}
