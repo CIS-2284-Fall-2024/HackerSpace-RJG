@@ -1,0 +1,27 @@
+﻿@page "/compdemo"
+
+@using HackerSpace.Components.SharedComponents
+@using HackerSpace.Data.Models
+<h3>Component Demo Page</h3>
+
+@if (speedFeeds == null)
+{
+    <p>Loading...</p>
+}
+else
+
+{
+    @foreach (var speedFeed in speedFeeds)
+    {
+        <MySharedComponent speedFeed="speedFeed"  />
+    }
+}
+
+@code {
+    List<SpeedFeed> speedFeeds = new List<SpeedFeed>
+    {
+        new SpeedFeed{ ChipLoad=2, Rpm=2000, Teeth= 4 },
+        new SpeedFeed{ ChipLoad=3, Rpm=2030, Teeth= 3 },
+        new SpeedFeed{ ChipLoad=4, Rpm=3000, Teeth= 2 },
+    };
+}

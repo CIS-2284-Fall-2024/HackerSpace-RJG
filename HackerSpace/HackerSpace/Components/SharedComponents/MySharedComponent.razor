@@ -1,0 +1,18 @@
+﻿@using HackerSpace.Data.Models
+<h3>My Shared Component</h3>
+
+@if(speedFeed == null)
+{
+    <p>No speed and feed.</p>
+}
+else
+{
+    <p>
+        @speedFeed.Teeth @speedFeed.ChipLoad @speedFeed.FeedRate
+    </p>
+}
+
+@code {
+    [Parameter]
+    public SpeedFeed? speedFeed{ get; set; }
+}
