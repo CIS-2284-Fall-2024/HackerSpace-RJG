@@ -1,0 +1,30 @@
+﻿@page "/badges"
+@attribute [StreamRendering(true)]
+
+@using Entities.Models
+@using HackerSpace.Data.DAL
+
+@inject BadgesPageDAL dal
+
+<h3>Badges Page</h3>
+
+@if(badges == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    @foreach(var badge in badges)
+    {
+        <p>@badge.Title</p>
+    }
+}
+@code {
+    private List<Badge>? badges;
+
+    protected async override Task OnInitializedAsync()
+    {
+        //Get badges
+        badges = await dal.GetAllAsync();
+    }
+}

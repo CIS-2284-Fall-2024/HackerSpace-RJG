@@ -2,6 +2,7 @@ using HackerSpace.Client.Pages;
 using HackerSpace.Components;
 using HackerSpace.Components.Account;
 using HackerSpace.Data;
+using HackerSpace.Data.DAL;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,9 @@ namespace HackerSpace
                 .AddDefaultTokenProviders();
 
             builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+            //Inject all data services here
+            builder.Services.AddTransient<BadgesPageDAL>();
 
             var app = builder.Build();
 
