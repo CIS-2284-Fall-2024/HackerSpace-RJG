@@ -1,6 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-
-namespace HackerSpace.Data.Models
+﻿namespace Entities.Models
 {
     public class SpeedFeed
     {
