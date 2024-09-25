@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackerSpace.Client", "Hacke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackerSpace.Client.Tests", "HackerSpace.Client.Tests\HackerSpace.Client.Tests.csproj", "{4EA969EF-C633-4BC3-AFF7-64DEF51E0894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{942C8C4D-51F9-4796-8128-745B28B24ECC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{942C8C4D-51F9-4796-8128-745B28B24ECC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

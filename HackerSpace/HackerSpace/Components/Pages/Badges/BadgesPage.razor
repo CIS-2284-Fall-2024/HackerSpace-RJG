@@ -1,5 +1,8 @@
 ﻿@page "/badges"
 @attribute [StreamRendering(true)]
+@rendermode InteractiveServer
+
+@inject NavigationManager Navigation
 
 @using Entities.Models
 @using HackerSpace.Data.DAL
@@ -18,6 +21,8 @@ else
     {
         <p>@badge.Title</p>
     }
+
+    <button type="button" class="btn btn-primary" @onclick="GoToBadgePage">Add Badge</button>
 }
 @code {
     private List<Badge>? badges;
@@ -26,5 +31,10 @@ else
     {
         //Get badges
         badges = await dal.GetAllAsync();
+    }
+
+    private void GoToBadgePage()
+    {
+        Navigation.NavigateTo("badge");
     }
 }
