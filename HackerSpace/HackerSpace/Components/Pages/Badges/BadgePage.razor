@@ -1,6 +1,9 @@
 ﻿@page "/badge"
 @rendermode InteractiveServer
 
+@inject NavigationManager nav
+@inject BadgesPageDAL dal
+
 <h3>Badge Page</h3>
 
     <div class="mb-3">
@@ -23,7 +26,7 @@
         <textarea class="form-control" id="submissioninstructions" aria-describedby="badge submission instructions" rows="5" cols="30" @bind="badge.SubmissionInstructions"></textarea>
         <div id="submissioninstructionshelp" class="form-text">Please provide instructions on how someone can get their work evaluated so they can be awarded this badge.</div>
     </div>
-    <button type="button" class="btn btn-primary" @onclick="OnSubmit" >Submit</button>
+    <button type="button" class="btn btn-primary" @onclick="OnSubmitAsync" >Submit</button>
 
 <p>
     @message
@@ -41,8 +44,16 @@
         badge = new Badge();
     }
 
-    private void OnSubmit()
+    private async Task OnSubmitAsync()
     {
-        message = badge?.Title;
+        if (badge != null)
+        {
+            await dal.AddAsync(badge);
+            nav.NavigateTo("badges");
+        }
+        else
+        {
+            message = "No badge to add!";
+        }
     }
 }

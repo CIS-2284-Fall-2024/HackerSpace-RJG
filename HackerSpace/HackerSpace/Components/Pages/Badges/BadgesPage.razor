@@ -2,11 +2,7 @@
 @attribute [StreamRendering(true)]
 @rendermode InteractiveServer
 
-@inject NavigationManager Navigation
-
-@using Entities.Models
-@using HackerSpace.Data.DAL
-
+@inject NavigationManager nav
 @inject BadgesPageDAL dal
 
 <h3>Badges Page</h3>
@@ -35,6 +31,6 @@ else
 
     private void GoToBadgePage()
     {
-        Navigation.NavigateTo("badge");
+        nav.NavigateTo("badge");
     }
 }

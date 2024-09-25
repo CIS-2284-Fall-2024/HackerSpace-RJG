@@ -17,5 +17,12 @@ namespace HackerSpace.Data.DAL
         {
             return await _context.Badges.ToListAsync();
         }
+
+        //Add item
+        public async Task AddAsync(Badge badge)
+        {
+            _context.Badges.Add(badge);
+            await _context.SaveChangesAsync();
+        }
     }
 }
