@@ -18,10 +18,31 @@ namespace HackerSpace.Data.DAL
             return await _context.Badges.ToListAsync();
         }
 
+        //Get item
+        public async Task<Badge?> GetByIdAsync(Guid id)
+        {
+            var badge =  await _context.Badges.Where(b=>b.Id == id).FirstOrDefaultAsync();
+            return badge;
+        }
+
         //Add item
         public async Task AddAsync(Badge badge)
         {
             _context.Badges.Add(badge);
+            await _context.SaveChangesAsync();
+        }
+
+        //Update item
+        public async Task UpdateAsync(Badge badge)
+        {
+            _context.Badges.Update(badge);
+            await _context.SaveChangesAsync();
+        }
+
+        //Delete item
+        public async Task DeleteAsync(Badge badge)
+        {
+            _context.Badges.Remove(badge);
             await _context.SaveChangesAsync();
         }
     }

@@ -15,10 +15,14 @@ else
 {
     @foreach(var badge in badges)
     {
-        <p>@badge.Title</p>
+        <p>
+            @badge.Title
+            <button type="button" class="btn btn-primary" @onclick="()=>OnEditBadge(badge)">Edit</button>
+            <button type="button" class="btn btn-danger" @onclick="()=>OnDeleteBadgeAsync(badge)">Delete</button>
+        </p>
     }
 
-    <button type="button" class="btn btn-primary" @onclick="GoToBadgePage">Add Badge</button>
+    <button type="button" class="btn btn-primary" @onclick="OnAddBadge">Add Badge</button>
 }
 @code {
     private List<Badge>? badges;
@@ -29,8 +33,19 @@ else
         badges = await dal.GetAllAsync();
     }
 
-    private void GoToBadgePage()
+    private void OnAddBadge()
     {
         nav.NavigateTo("badge");
+    }
+
+    private void OnEditBadge(Badge badge)
+    {
+        nav.NavigateTo($"badge/{badge.Id}");
+    }
+
+    private async Task OnDeleteBadgeAsync(Badge badge)
+    {
+        badges?.Remove(badge);
+        await dal.DeleteAsync(badge);
     }
 }

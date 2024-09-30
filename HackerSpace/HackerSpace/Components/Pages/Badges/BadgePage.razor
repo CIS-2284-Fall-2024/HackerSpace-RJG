@@ -1,4 +1,5 @@
 ﻿@page "/badge"
+@page "/badge/{Id}"
 @rendermode InteractiveServer
 
 @inject NavigationManager nav
@@ -6,49 +7,70 @@
 
 <h3>Badge Page</h3>
 
-    <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" aria-describedby="badge title" @bind = "badge.Title">
-        <div id="titlehelp" class="form-text">Please enter a title for this badge.</div>
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" aria-describedby="badge description" rows="5" cols="30" @bind="badge.Description"></textarea>
-        <div id="descriptionhelp" class="form-text">Please enter a description for this badge.</div>
-    </div>
-    <div class="mb-3">
-        <label for="taskdescription" class="form-label">Task Description</label>
-        <textarea class="form-control" id="taskdescription" aria-describedby="badge task description" rows="5" cols="30" @bind="badge.TaskDescription"></textarea>
-        <div id="taskdescriptionhelp" class="form-text">Please enter a description of what someone has to do to earn this badge.</div>
-    </div>
-    <div class="mb-3">
-        <label for="submissioninstructions" class="form-label">Submission Instructions</label>
-        <textarea class="form-control" id="submissioninstructions" aria-describedby="badge submission instructions" rows="5" cols="30" @bind="badge.SubmissionInstructions"></textarea>
-        <div id="submissioninstructionshelp" class="form-text">Please provide instructions on how someone can get their work evaluated so they can be awarded this badge.</div>
-    </div>
-    <button type="button" class="btn btn-primary" @onclick="OnSubmitAsync" >Submit</button>
-
+    @if(badge==null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" aria-describedby="badge title" @bind = "badge.Title">
+            <div id="titlehelp" class="form-text">Please enter a title for this badge.</div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" aria-describedby="badge description" rows="5" cols="30" @bind="badge.Description"></textarea>
+            <div id="descriptionhelp" class="form-text">Please enter a description for this badge.</div>
+        </div>
+        <div class="mb-3">
+            <label for="taskdescription" class="form-label">Task Description</label>
+            <textarea class="form-control" id="taskdescription" aria-describedby="badge task description" rows="5" cols="30" @bind="badge.TaskDescription"></textarea>
+            <div id="taskdescriptionhelp" class="form-text">Please enter a description of what someone has to do to earn this badge.</div>
+        </div>
+        <div class="mb-3">
+            <label for="submissioninstructions" class="form-label">Submission Instructions</label>
+            <textarea class="form-control" id="submissioninstructions" aria-describedby="badge submission instructions" rows="5" cols="30" @bind="badge.SubmissionInstructions"></textarea>
+            <div id="submissioninstructionshelp" class="form-text">Please provide instructions on how someone can get their work evaluated so they can be awarded this badge.</div>
+        </div>
+        <button type="button" class="btn btn-primary" @onclick="OnSubmitAsync" >Submit</button>
+    }
 <p>
     @message
 </p>
 @code {
-    //Instantiate a new badge
-    //Get the users inputs
-    //Save the badge to the database
+    [Parameter]
+    public string? Id { get; set; }
+
     private string? message;
 
     private Badge? badge;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        badge = new Badge();
+        if (Id == null)
+        {
+            badge = new Badge();
+        }
+        else
+        {
+            var guid = Guid.Parse(Id);
+            badge = await dal.GetByIdAsync(guid);
+        }
     }
 
     private async Task OnSubmitAsync()
     {
         if (badge != null)
         {
-            await dal.AddAsync(badge);
+            if (Id == null)
+            {
+                await dal.AddAsync(badge);
+            }
+            else
+            {
+                await dal.UpdateAsync(badge);
+            }
             nav.NavigateTo("badges");
         }
         else
