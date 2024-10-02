@@ -18,7 +18,7 @@ else
         <li>
             @badge.Title 
             <button type="button" class="btn btn-outline-primary btn-sm" @onclick="(() => OnEditBadgeClick(badge))">Edit</button>
-            <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" @onclick="(()=> OnDeleteBadgeClickAsync(badge))">Delete</button>
         </li>
     }
     </ul>
@@ -40,5 +40,10 @@ else
     protected void OnEditBadgeClick(Badge badge)
     {
         nav.NavigateTo($"badge/{badge.Id}"); 
+    }
+
+    protected async Task OnDeleteBadgeClickAsync(Badge badge)
+    {
+        await dal.DeleteAsync(badge.Id);
     }
 }

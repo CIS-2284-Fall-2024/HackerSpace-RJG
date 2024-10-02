@@ -42,7 +42,7 @@ namespace HackerSpace.Data.Mocks
         public Task UpdateAsync(Badge? badge)
         {
             //find the original in the list
-            var existingBadge = badges.Where(b=>b.Id == badge?.Id).FirstOrDefault();
+            var existingBadge = badges.Where(b => b.Id == badge?.Id).FirstOrDefault();
 
             if (existingBadge != null)
             {
@@ -62,11 +62,21 @@ namespace HackerSpace.Data.Mocks
             return Task.CompletedTask;
         }
 
-       
-
         public Task<List<Badge>> GetAllAsync()
         {
             return Task.FromResult(badges);
+        }
+
+        public Task DeleteAsync(Guid id)
+        {
+            //find the original in the list
+            var existingBadge = badges.Where(b => b.Id == id).FirstOrDefault();
+
+            if (existingBadge != null)
+            {
+                badges.Remove(existingBadge);
+            }
+            return Task.CompletedTask;
         }
     }
 }

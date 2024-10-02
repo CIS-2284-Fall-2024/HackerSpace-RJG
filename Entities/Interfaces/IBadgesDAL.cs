@@ -8,5 +8,6 @@ namespace Entities.Interfaces
         public Task<Badge?> GetBadgeAsync(Guid id);
         public Task AddAsync(Badge badge);
         public Task UpdateAsync(Badge? badge);
+        public Task DeleteAsync(Guid id);
     }
 }
