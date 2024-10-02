@@ -3,6 +3,7 @@ using HackerSpace.Client.Pages;
 using HackerSpace.Components;
 using HackerSpace.Components.Account;
 using HackerSpace.Data;
+using HackerSpace.Data.DALs;
 using HackerSpace.Data.Mocks;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -46,7 +47,7 @@ namespace HackerSpace
             builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
             //Add data access services
-            builder.Services.AddSingleton<IBadgesDAL,MockBadgesDAL>();
+            builder.Services.AddTransient<IBadgesDAL,BadgesDAL>();
 
             var app = builder.Build();
 

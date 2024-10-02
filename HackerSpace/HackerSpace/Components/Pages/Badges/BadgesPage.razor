@@ -44,6 +44,7 @@ else
 
     protected async Task OnDeleteBadgeClickAsync(Badge badge)
     {
+        badges?.Remove(badge);
         await dal.DeleteAsync(badge.Id);
     }
 }
