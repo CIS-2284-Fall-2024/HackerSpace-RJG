@@ -1,0 +1,44 @@
+﻿@page "/badges"
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+@inject IBadgesDAL dal
+@inject NavigationManager nav
+
+<h3>BadgesPage</h3>
+
+@if(badges == null)
+{
+    <img src="/images/spur_gears_animation.gif" />
+}
+else
+{
+    <ul>
+    @foreach(var badge in badges)
+    {
+        <li>
+            @badge.Title 
+            <button type="button" class="btn btn-outline-primary btn-sm" @onclick="(() => OnEditBadgeClick(badge))">Edit</button>
+            <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+        </li>
+    }
+    </ul>
+    <button type="button" class="btn btn-primary" @onclick="OnAddBadgeClick">Add Badge</button>
+}
+@code {
+    private List<Badge>? badges;
+
+    protected async override Task OnInitializedAsync()
+    {
+        badges = await dal.GetAllAsync();
+    }
+
+    protected void OnAddBadgeClick()
+    {
+        nav.NavigateTo("badge");
+    }
+
+    protected void OnEditBadgeClick(Badge badge)
+    {
+        nav.NavigateTo($"badge/{badge.Id}"); 
+    }
+}
