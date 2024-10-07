@@ -13,31 +13,33 @@
 }
 else
 {
-    <div>
-        <label>
-            Title:
-            <InputText @bind-Value="badge.Title" />
-        </label>
-    </div>
-    <div>
-        <label>
-            Description:
-            <InputText @bind-Value="badge.Description" />
-        </label>
-    </div>
-    <div>
-        <label>
-            Task:
-            <InputText @bind-Value="badge.Task" />
-        </label>
-    </div>
-    <div>
-        <label>
-            Turn in Instructions:
-            <InputText @bind-Value="badge.TurninInstructions" />
-        </label>
-    </div>
-    <button type="button" class="btn btn-primary" @onclick="OnSubmitClickAsync">Submit</button>
+    <EditForm Model="badge">
+        <div>
+            <label>
+                Title:
+                <InputText @bind-Value="badge.Title" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Description:
+                <InputText @bind-Value="badge.Description" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Task:
+                <InputText @bind-Value="badge.Task" />
+            </label>
+        </div>
+        <div>
+            <label>
+                Turn in Instructions:
+                <InputText @bind-Value="badge.TurninInstructions" />
+            </label>
+        </div>
+        <button type="button" class="btn btn-primary" @onclick="OnSubmitClickAsync">Submit</button>
+    </EditForm>
 }
 <button type="button" class="btn btn-caution" @onclick="OnCancelClick">Cancel</button>
 
@@ -45,11 +47,12 @@ else
     @message
 </p>
 @code {
+
     [Parameter]
     public string? Id { get; set; }
 
     private string? message;
-    private Badge badge;
+    private Badge? badge;
 
     protected override async Task OnInitializedAsync()
     {
@@ -76,7 +79,7 @@ else
 
     protected async Task OnSubmitClickAsync()
     {
-        if(badge.Id == Guid.Empty)
+        if(badge?.Id == Guid.Empty)
         {
             //New Badge so add it
             await dal.AddAsync(badge);
