@@ -13,32 +13,39 @@
 }
 else
 {
-    <EditForm Model="badge">
+    <EditForm OnValidSubmit="@OnSubmitClickAsync" Model="badge">
+
+        <DataAnnotationsValidator />
+        @* <ValidationSummary /> *@
         <div>
             <label>
                 Title:
                 <InputText @bind-Value="badge.Title" />
+                <ValidationMessage For="() => badge.Title" />
             </label>
         </div>
         <div>
             <label>
                 Description:
                 <InputText @bind-Value="badge.Description" />
+                <ValidationMessage For="() => badge.Description" />
             </label>
         </div>
         <div>
             <label>
                 Task:
                 <InputText @bind-Value="badge.Task" />
+                <ValidationMessage For="() => badge.Task" />
             </label>
         </div>
         <div>
             <label>
                 Turn in Instructions:
                 <InputText @bind-Value="badge.TurninInstructions" />
+                <ValidationMessage For="() => badge.TurninInstructions" />
             </label>
         </div>
-        <button type="button" class="btn btn-primary" @onclick="OnSubmitClickAsync">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </EditForm>
 }
 <button type="button" class="btn btn-caution" @onclick="OnCancelClick">Cancel</button>
@@ -77,7 +84,7 @@ else
         }
     }
 
-    protected async Task OnSubmitClickAsync()
+    protected async Task OnSubmitClickAsync(EditContext editContext)
     {
         if(badge?.Id == Guid.Empty)
         {
