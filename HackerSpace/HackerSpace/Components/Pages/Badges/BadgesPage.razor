@@ -6,22 +6,33 @@
 
 <h3>BadgesPage</h3>
 
-@if(badges == null)
+@if (badges == null)
 {
     <img src="/images/spur_gears_animation.gif" />
 }
 else
 {
-    <ul>
-    @foreach(var badge in badges)
-    {
-        <li>
-            @badge.Title 
-            <button type="button" class="btn btn-outline-primary btn-sm" @onclick="(() => OnEditBadgeClick(badge))">Edit</button>
-            <button type="button" class="btn btn-outline-danger btn-sm" @onclick="(()=> OnDeleteBadgeClickAsync(badge))">Delete</button>
-        </li>
-    }
-    </ul>
+    <table class="table table-striped">
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        @foreach (var badge in badges)
+        {
+            <tr>
+                <td>@badge.Title </td>
+                <td>@badge.Description</td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm" @onclick="(() => OnEditBadgeClick(badge))">Edit</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger btn-sm" @onclick="(()=> OnDeleteBadgeClickAsync(badge))">Delete</button>
+                </td>
+            </tr>
+        }
+    </table>
     <button type="button" class="btn btn-primary" @onclick="OnAddBadgeClick">Add Badge</button>
 }
 @code {
@@ -39,7 +50,7 @@ else
 
     protected void OnEditBadgeClick(Badge badge)
     {
-        nav.NavigateTo($"badge/{badge.Id}"); 
+        nav.NavigateTo($"badge/{badge.Id}");
     }
 
     protected async Task OnDeleteBadgeClickAsync(Badge badge)

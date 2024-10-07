@@ -18,37 +18,45 @@ else
         <DataAnnotationsValidator />
         @* <ValidationSummary /> *@
         <div>
-            <label>
-                Title:
-                <InputText @bind-Value="badge.Title" />
+            <div class="form-group">
+                <label>
+                    Title:
+                </label>
+                <InputText class="form-control" @bind-Value="badge.Title" />
                 <ValidationMessage For="() => badge.Title" />
-            </label>
+            </div>
         </div>
         <div>
-            <label>
-                Description:
-                <InputText @bind-Value="badge.Description" />
+            <div class="form-group">
+                <label>
+                    Description:
+                </label>
+                <InputTextArea class="form-control" @bind-Value="badge.Description" />
                 <ValidationMessage For="() => badge.Description" />
-            </label>
+            </div>
         </div>
         <div>
-            <label>
-                Task:
-                <InputText @bind-Value="badge.Task" />
+            <div class="form-group">
+                <label>
+                    Task:
+                </label>
+                <InputTextArea class="form-control" @bind-Value="badge.Task" />
                 <ValidationMessage For="() => badge.Task" />
-            </label>
+            </div>
         </div>
         <div>
-            <label>
-                Turn in Instructions:
-                <InputText @bind-Value="badge.TurninInstructions" />
+            <div class="form-group">
+                <label>
+                    Turn in Instructions:
+                </label>
+                <InputTextArea class="form-control" @bind-Value="badge.TurninInstructions" />
                 <ValidationMessage For="() => badge.TurninInstructions" />
-            </label>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </EditForm>
 }
-<button type="button" class="btn btn-caution" @onclick="OnCancelClick">Cancel</button>
+<button type="button" class="btn btn-danger" @onclick="OnCancelClick">Cancel</button>
 
 <p>
     @message
@@ -63,7 +71,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if(Id== null)
+        if (Id == null)
         {
             //create new badge
             badge = new Badge();
@@ -86,7 +94,7 @@ else
 
     protected async Task OnSubmitClickAsync(EditContext editContext)
     {
-        if(badge?.Id == Guid.Empty)
+        if (badge?.Id == Guid.Empty)
         {
             //New Badge so add it
             await dal.AddAsync(badge);
