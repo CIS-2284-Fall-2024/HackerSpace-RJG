@@ -13,6 +13,18 @@ namespace HackerSpace.Data.DALs
             _context = context;
         }
 
+
+        public async Task<List<Badge>> GetAllAsync()
+        {
+            return await _context.Badges.ToListAsync();
+        }
+
+        public async Task<Badge?> GetBadgeAsync(Guid id)
+        {
+            var existingBadge = await _context.Badges.Where(b => b.Id == id).FirstOrDefaultAsync();
+            return existingBadge;
+        }
+
         public async Task AddAsync(Badge badge)
         {
             _context.Badges.Add(badge);
@@ -27,17 +39,6 @@ namespace HackerSpace.Data.DALs
                 _context.Remove(existingBadge);
             }
             await _context.SaveChangesAsync();
-        }
-
-        public async Task<List<Badge>> GetAllAsync()
-        {
-            return await _context.Badges.ToListAsync();
-        }
-
-        public async Task<Badge?> GetBadgeAsync(Guid id)
-        {
-            var existingBadge = await _context.Badges.Where(b => b.Id == id).FirstOrDefaultAsync();
-            return existingBadge;
         }
 
         public async Task UpdateAsync(Badge? badge)

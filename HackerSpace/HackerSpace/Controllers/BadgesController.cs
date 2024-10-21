@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Entities.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HackerSpace.Controllers
@@ -7,10 +7,17 @@ namespace HackerSpace.Controllers
     [ApiController]
     public class BadgesController : ControllerBase
     {
-        [HttpGet]
-        public string GetAll()
+        private readonly IBadgesDAL _dal;
+
+        public BadgesController(IBadgesDAL dal)
         {
-            return "Blah!";
+            _dal = dal;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            return Ok(await _dal.GetAllAsync());
         }
     }
 }

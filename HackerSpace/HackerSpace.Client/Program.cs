@@ -1,8 +1,9 @@
 using Entities.Interfaces;
-using HackerSpace.Client;
+using HackerSpace.Client.Data.DALs;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
+//Client Side
 namespace HackerSpace.Client
 {
     internal class Program
@@ -16,7 +17,13 @@ namespace HackerSpace.Client
             builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticationStateProvider>();
 
             //Add data access services
-            //builder.Services.AddTransient<IBadgesDAL, BadgesDAL>();
+            builder.Services.AddTransient<IBadgesDAL, ClientBadgesDAL>();
+
+            //Add http client
+            builder.Services.AddScoped(http => new HttpClient
+            {
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+            });
 
             await builder.Build().RunAsync();
         }
