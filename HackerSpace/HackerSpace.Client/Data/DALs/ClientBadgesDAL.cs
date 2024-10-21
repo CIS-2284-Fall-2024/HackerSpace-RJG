@@ -1,5 +1,6 @@
 ﻿using Entities.Interfaces;
 using Entities.Models;
+using System;
 using System.Net.Http.Json;
 
 namespace HackerSpace.Client.Data.DALs
@@ -22,24 +23,28 @@ namespace HackerSpace.Client.Data.DALs
 
         }
 
-        public Task<Badge?> GetBadgeAsync(Guid id)
+        public async Task<Badge?> GetBadgeAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _http.GetFromJsonAsync<Badge?>($"api/Badges/{id.ToString()}");
         }
 
-        public Task AddAsync(Badge badge)
+        public async Task AddAsync(Badge badge)
         {
-            throw new NotImplementedException();
+            await _http.PostAsJsonAsync<Badge>($"api/Badges/{badge.Id}", badge);
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _http.DeleteAsync($"api/Badges/{id.ToString()}");
         }
 
-        public Task UpdateAsync(Badge? badge)
+        public async Task UpdateAsync(Badge? badge)
         {
-            throw new NotImplementedException();
+            if(badge == null)
+            {
+                throw new ArgumentNullException(nameof(badge)); 
+            }
+            await _http.PutAsJsonAsync<Badge>($"api/Badges", badge);
         }
     }
 }
