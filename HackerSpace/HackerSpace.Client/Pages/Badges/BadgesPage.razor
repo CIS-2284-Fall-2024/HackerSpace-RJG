@@ -3,23 +3,25 @@
 @attribute [StreamRendering]
 @inject IBadgesDAL dal
 @inject NavigationManager nav
+@inject PersistentComponentState appState
+@implements IDisposable
 
 <h3>BadgesPage</h3>
 
-@if (badges == null)
+@if (_badges == null)
 {
     <img src="/images/spur_gears_animation.gif" />
 }
 else
 {
-    <table class="table table-striped">
+    <table>
         <tr>
             <th>Title</th>
             <th>Description</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        @foreach (var badge in badges)
+        @foreach (var badge in _badges)
         {
             <tr>
                 <td>@badge.Title </td>
@@ -36,11 +38,25 @@ else
     <button type="button" class="btn btn-primary" @onclick="OnAddBadgeClick">Add Badge</button>
 }
 @code {
-    private List<Badge>? badges;
+    private PersistingComponentStateSubscription _subscription;
+
+    private List<Badge>? _badges;
 
     protected async override Task OnInitializedAsync()
     {
-        badges = await dal.GetAllAsync();
+        _subscription = appState.RegisterOnPersisting(PersistAsync);
+
+        var foundInState = appState.TryTakeFromJson<List<Badge>>("badges", out List<Badge>? badges);
+
+        _badges = foundInState 
+            ? badges
+            : await dal.GetAllAsync();
+    }
+
+    private Task PersistAsync()
+    {
+        appState.PersistAsJson("badges", _badges);
+        return Task.CompletedTask;
     }
 
     protected void OnAddBadgeClick()
@@ -55,7 +71,12 @@ else
 
     protected async Task OnDeleteBadgeClickAsync(Badge badge)
     {
-        badges?.Remove(badge);
+        _badges?.Remove(badge);
         await dal.DeleteAsync(badge.Id);
+    }
+
+    public void Dispose()
+    {
+        _subscription.Dispose();
     }
 }
